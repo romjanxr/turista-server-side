@@ -49,6 +49,40 @@ async function run() {
             res.json(result);
         })
 
+        // Get My Order Details API
+        app.get('/myorders', async (req, res) => {
+            const email = req.query.email;
+            const query = { email: email }
+            const bookings = await bookingCollection.find(query).toArray();
+            res.send(bookings);
+        })
+
+        //Update Single Order Status
+        app.put('/myorders/:id', async (req, res) => {
+            const id = req.params.id;
+            const status = req.body.status;
+            console.log(status)
+            const filter = { _id: ObjectId(id) }
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: {
+                    status: status
+                },
+            };
+            const result = await bookingCollection.updateOne(filter, updateDoc, options)
+
+            res.json(result);
+        })
+
+        // DELETE A ORDERS
+        app.delete('/myorders/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) }
+            const result = await bookingCollection.deleteOne(query);
+            res.json(result);
+        })
+
+
     }
     finally {
 
