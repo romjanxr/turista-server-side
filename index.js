@@ -52,8 +52,14 @@ async function run() {
         // Get My Order Details API
         app.get('/myorders', async (req, res) => {
             const email = req.query.email;
-            const query = { email: email }
-            const bookings = await bookingCollection.find(query).toArray();
+            let bookings;
+            if (email) {
+                const query = { email: email }
+                bookings = await bookingCollection.find(query).toArray();
+            }
+            else {
+                bookings = await bookingCollection.find({}).toArray();
+            }
             res.send(bookings);
         })
 
@@ -61,7 +67,6 @@ async function run() {
         app.put('/myorders/:id', async (req, res) => {
             const id = req.params.id;
             const status = req.body.status;
-            console.log(status)
             const filter = { _id: ObjectId(id) }
             const options = { upsert: true };
             const updateDoc = {
