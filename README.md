@@ -3,7 +3,7 @@
 Live Site: [https://turista-server.herokuapp.com/](https://turista-server.herokuapp.com/).
 
 * Technology used on this server is NodeJS, Express, Mongodb
-* Added Private Route
-* used location sate to redirect user after login
-* used firebase Authentication for user management
-* Dashboard feature added user can see his/her bookings and able to update and delete them
+* Used dotenv for creating environment variable.
+* Used Mongodb Atlas for database.
+* POST, Get, PUT and DELETE API are implemented.
+* Used query & Params for request data
